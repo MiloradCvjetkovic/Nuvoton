@@ -23,7 +23,7 @@
 
   <!-- Must have - pack release information for versioning: -->
   <releases>
-    <release version="3.2.0" date="2026-10-29">
+    <release version="3.2.0" date="2026-10-30">
       Added board layer supporting Ethos-U55, HyperRAM, high-speed USB Device, camera and LCD.
       Added Virtual I/O CMSIS driver.
       Added vStream Video In (camera) CMSIS driver.

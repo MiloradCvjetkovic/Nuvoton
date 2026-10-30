@@ -15,7 +15,7 @@
   </licenseSets>
 
   <releases>
-    <release version="3.2.0" date="2026-10-29">
+    <release version="3.2.0" date="2026-10-30">
       - Add documentation references.
       - Expose CMSIS high-speed USB Device driver.
     </release>
@@ -587,17 +587,11 @@
       <require Cclass="Device" Cgroup="StdDriver" Csub="USCI_UART"/>
     </condition>
 
-    <condition id="CMSIS Driver USBD FS">
-      <description>CMSIS full-speed USB Device driver</description>
+    <condition id="CMSIS Driver USBD">
+      <description>CMSIS full-speed and high-speed USB Device drivers</description>
       <require condition="NuMicro M55M1_M5531 Device"/>
       <require Cclass="Device" Cgroup="Common"/>
       <require Cclass="Device" Cgroup="StdDriver" Csub="USBD"/>
-    </condition>
-
-    <condition id="CMSIS Driver USBD HS">
-      <description>CMSIS high-speed USB Device driver</description>
-      <require condition="NuMicro M55M1_M5531 Device"/>
-      <require Cclass="Device" Cgroup="Common"/>
       <require Cclass="Device" Cgroup="StdDriver" Csub="HSUSBD"/>
     </condition>
 
@@ -725,24 +719,15 @@
       </files>
     </component>
 
-    <component Cclass="CMSIS Driver" Cgroup="USB Device" Csub="M55M1_M5531_FS" Cversion="1.0.0" Capiversion="2.3.0" condition="CMSIS Driver USBD FS">
-    <description>CMSIS full-speed USB Device driver for Nuvoton M55M1 series (Driver_USBD0)</description>
+    <component Cclass="CMSIS Driver" Cgroup="USB Device" Csub="M55M1_M5531" Cversion="1.0.0" Capiversion="2.3.0" condition="CMSIS Driver USBD">
+    <description>CMSIS full-speed and high-speed USB Device drivers for Nuvoton M55M1 series (Driver_USBD0/1)</description>
       <RTE_Components_h>  <!-- the following content goes into file 'RTE_Components.h' -->
         #define RTE_Drivers_USBD0
-      </RTE_Components_h>
-      <files>
-      <file category="header"  name="Library/CMSIS/Driver/Source/RTE_Device/RTE_Device_USBD.h" attr="config" version="1.0.0"/>
-      <file category="sourceC" name="Library/CMSIS/Driver/Source/Driver_USBD/Driver_USBD.c"/>
-      </files>
-    </component>
-
-    <component Cclass="CMSIS Driver" Cgroup="USB Device" Csub="M55M1_M5531_HS" Cversion="1.0.0" Capiversion="2.3.0" condition="CMSIS Driver USBD HS">
-    <description>CMSIS high-speed USB Device driver for Nuvoton M55M1 series (Driver_USBD1)</description>
-      <RTE_Components_h>
         #define RTE_Drivers_USBD1
       </RTE_Components_h>
       <files>
       <file category="header"  name="Library/CMSIS/Driver/Source/RTE_Device/RTE_Device_USBD.h" attr="config" version="1.0.0"/>
+      <file category="sourceC" name="Library/CMSIS/Driver/Source/Driver_USBD/Driver_USBD.c"/>
       <file category="sourceC" name="Library/CMSIS/Driver/Source/Driver_USBD/Driver_USBD_HSUSBD.c"/>
       </files>
     </component>

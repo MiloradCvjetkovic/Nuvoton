@@ -13,9 +13,9 @@
 #define __RTE_DEVICE_USBD_H
 
 //   <o0.0> USBD0 (Full Speed Universal Serial Bus Device)
-//   <i> Configuration settings for Driver_USBD0 in component ::CMSIS Driver:USB Device:M55M1_M5531_FS
+//   <i> Configuration settings for Driver_USBD0 in component ::CMSIS Driver:USB Device
 #define RTE_USBD0                       1
 //   <o0.0> USBD1 (High Speed Universal Serial Bus Device)
-//   <i> Configuration settings for Driver_USBD1 in component ::CMSIS Driver:USB Device:M55M1_M5531_HS
+//   <i> Configuration settings for Driver_USBD1 in component ::CMSIS Driver:USB Device
 #define RTE_USBD1                       1
 #endif
