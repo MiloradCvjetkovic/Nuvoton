@@ -1127,13 +1127,21 @@ static void USBD_DataOutStage(const USBD_Info_t *const ptr_usbd_info, uint8_t ep
     ptr_ep = &ptr_usbd_info->ptr_rw_info->ep_info[ep - ptr_usbd_info->ptr_ro_info->ptr_USBD->EP];
 
     num_transferred = ep->EPDATCNT & HSUSBD_EPDATCNT_DATCNT_Msk;
+    if (num_transferred > (ptr_ep->num - ptr_ep->num_transferred_total))
+    {
+        num_transferred = ptr_ep->num - ptr_ep->num_transferred_total;
+    }
+
+    USBD_ReadEpBuffer((uint8_t *)ptr_ep->data + ptr_ep->num_transferred_total, (uint32_t *)&ep->EPDAT, num_transferred);
     ptr_ep->num_transferred_total += num_transferred;
 
-    USBD_ReadEpBuffer((uint8_t *)ptr_ep->data, (uint32_t *)&ep->EPDAT, num_transferred);
-
-    if ((ptr_usbd_info->ptr_rw_info->cb_endpoint_event != NULL))
+    if ((num_transferred < ptr_ep->max_packet_size) || (ptr_ep->num_transferred_total == ptr_ep->num))
     {
-        ptr_usbd_info->ptr_rw_info->cb_endpoint_event(ep_addr, ARM_USBD_EVENT_OUT);
+        ep->EPINTEN &= ~HSUSBD_EPINTEN_RXPKIEN_Msk;
+        if (ptr_usbd_info->ptr_rw_info->cb_endpoint_event != NULL)
+        {
+            ptr_usbd_info->ptr_rw_info->cb_endpoint_event(ep_addr, ARM_USBD_EVENT_OUT);
+        }
     }
 }
 
